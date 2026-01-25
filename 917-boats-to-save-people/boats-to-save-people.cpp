@@ -6,13 +6,12 @@ public:
         int f =0,l=n-1;
         sort(people.begin(),people.end());
         while(f<=l){
-            s=0;
-            s+=people[l];
-            if(s<limit){
-                s+=people[f];
-                if(s<=limit) f++;
+            if(people[l]+people[f]<=limit) {
+                f++;l--;b++;
             }
-        b++;l--;
+            else{
+                l--;b++;
+            }
         }
         return b;
     }
