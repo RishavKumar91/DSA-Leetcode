@@ -20,17 +20,26 @@ public:
         // for(int i =0;i<n;i++){
         //     if(nums[i]==v[0]||nums[i]==v[1]) ans.push_back(i) ; 
         // }
-        int n =nums.size();
-        vector<int> v;
+        // int n =nums.size();
+        // vector<int> v;
+        // unordered_map<int,int> mp;
+        // for(int i =0;i<n;i++)
+        // mp[nums[i]] =i;
+        // for(int i =0;i<n;i++){
+        //     int a  = target-nums[i];
+        //     if(a==nums[i] && i!=mp[nums[i]]) {v.push_back(i); v.push_back(mp[nums[i]]);break;}
+        //     mp.erase(nums[i]);
+        //     if(mp.find(a) != mp.end()){ v.push_back(i) ; v.push_back(mp[a]); break;}
+        //     mp[nums[i]]=i;
+        // }
+
+        int n = nums.size();
         unordered_map<int,int> mp;
-        for(int i =0;i<n;i++)
-        mp[nums[i]] =i;
+        vector<int> v;
         for(int i =0;i<n;i++){
-            int a  = target-nums[i];
-            if(a==nums[i] && i!=mp[nums[i]]) {v.push_back(i); v.push_back(mp[nums[i]]);break;}
-            mp.erase(nums[i]);
-            if(mp.find(a) != mp.end()){ v.push_back(i) ; v.push_back(mp[a]); break;}
-            mp[nums[i]]=i;
+            int rm = target - nums[i];
+            if(mp.find(rm)!=mp.end()){ v.push_back(i);v.push_back(mp[rm]);return v; }
+            else mp[nums[i]] = i;
         }
         return v;
     }
