@@ -17,12 +17,12 @@ bool ok(vector<vector<char>> &bor,int row,int col,int n){
     //     if(bor[i][j]=='Q') return 0;
     // i++;j--;
     // }
-    i=row,j=col;
+    i=row-1,j=col+1;
     while(i>=0&&j<n){         // NE
         if(bor[i][j]=='Q') return 0;
     i--;j++;
     }
-    i=row,j=col;
+    i=row-1,j=col-1;
     while(i>=0&&j>=0){        //NW
         if(bor[i][j]=='Q') return 0;
     i--;j--;
