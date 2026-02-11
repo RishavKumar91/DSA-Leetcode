@@ -11,19 +11,13 @@
  */
 class Solution {
 public:
-    void h(TreeNode *p,TreeNode *q,bool &ans){
-        if(ans ==0) return;
-        if(p==NULL && q!=NULL) {ans =0 ;return ;}
-        if(p!=NULL && q==NULL) {ans =0;return ;}
-        if(p==NULL && q==NULL) {return ;}
-        if(p->val!=q->val) {ans =0; return ;}
-        h(p->left,q->left,ans);
-        h(p->right,q->right,ans);
-        return ;
-    }
     bool isSameTree(TreeNode* p, TreeNode* q) {
-        bool ans =1;
-        h(p,q,ans);
-        return ans;
+        if(p==NULL && q==NULL) return 1;
+        if(p==NULL && q!=NULL) return 0;
+        if(p!=NULL && q==NULL) return 0;
+        if(p->val!=q->val) return 0;
+        if(p!=NULL && q!=NULL) 
+            return isSameTree(p->left,q->left) && isSameTree(p->right,q->right);
+        return 1;
     }
 };
