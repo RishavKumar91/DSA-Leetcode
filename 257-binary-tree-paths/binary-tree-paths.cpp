@@ -11,20 +11,24 @@
  */
 class Solution {
 public:
-    void hlpr(TreeNode *root,vector<string> &ans,string s){
+    void hlpr(TreeNode *root,vector<string> &ans,string & s){
         if(root==NULL) return;
-        string a = to_string(root->val);
+        int l = s.size();
+        s += to_string(root->val);
         if(root->left==NULL && root->right==NULL){
-            s = s + a;
             ans.push_back(s);
-            return;
         }
-        hlpr(root->left,ans,s + a + "->");
-        hlpr(root->right,ans,s + a + "->");
+        else {
+            s += "->";
+            hlpr(root->left,ans,s);
+            hlpr(root->right,ans,s);
+        }
+        s.resize(l);
     }
     vector<string> binaryTreePaths(TreeNode* root) {
         vector<string> ans;
-        hlpr(root,ans,"");
+        string s = "";
+        hlpr(root,ans,s);
         return ans;
     }
 };
