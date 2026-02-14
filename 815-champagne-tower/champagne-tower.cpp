@@ -4,7 +4,7 @@ public:
         vector<vector<double>> dp(100, vector<double>(100, 0));
         double p = poured;
         dp[0][0] = p;
-        for(int i =0;i<99;i++){
+        for(int i =0;i<query_row;i++){
             for(int j = 0;j<=i;j++){
                 if(dp[i][j]>1.0){
                     double remhalf = (dp[i][j] - 1.0)/2;
@@ -14,6 +14,6 @@ public:
                 }
             }
         }
-    return dp[query_row][query_glass];
+    return min(dp[query_row][query_glass],1.0);
     }
 };
