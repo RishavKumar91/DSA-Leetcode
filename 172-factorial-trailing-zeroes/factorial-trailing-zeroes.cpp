@@ -8,5 +8,8 @@ public:
             k = k*5;
         }
     return r;
+
+
+    return n == 0 ? 0 : n / 5 + trailingZeroes(n / 5);     //better way
     }
 };
