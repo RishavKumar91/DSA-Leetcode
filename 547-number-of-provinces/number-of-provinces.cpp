@@ -1,28 +1,39 @@
 class Solution {
 public:
-void bfs(vector<int> &visited, vector<vector<int>>& isConnected, int start) {
-        queue<int> q;
-        q.push(start);
-        visited[start] = 1;
-        while (!q.empty()) {
-            int node = q.front();
-            q.pop();
-            for (int j = 0; j < isConnected.size(); j++) {
-                if (isConnected[node][j] == 1 && visited[j] == 0) {
-                    visited[j] = 1;
-                    q.push(j);
+vector<int> parnt;
+vector<int> siz;
+void make(int i ){
+    parnt[i] = i; siz[i]=1;
+}
+int find(int i ){
+    if(parnt[i]==i) return i;
+    return parnt[i]= find(parnt[i]);
+}
+void Union(int u,int v){
+    u = find(u);
+    v = find(v);
+    if(u!=v){
+        if(siz[u]>=siz[v]) { parnt[v] =u ; siz[u] += siz[v];}
+        else { parnt[u] = v ; siz[v] += siz[u];}
+    }
+}
+    int findCircleNum(vector<vector<int>>& isConnected) {
+        int n = isConnected.size();
+        parnt.resize(n);
+        siz.resize(n);
+        for(int i =0;i<n;i++){
+            make(i);
+        }
+        for(int i =0;i<n;i++){
+            for(int j =0;j<n;j++){
+                if(i!=j && isConnected[i][j]==1){
+                    Union(i,j);
                 }
             }
         }
-    }
-    int findCircleNum(vector<vector<int>>& isConnected) {
-        int ans = 0;
-        int n = isConnected.size();
-        vector<int> visited(n,0);
+        int  ans =0;
         for(int i =0;i<n;i++){
-            if(visited[i]==1) continue;
-            bfs(visited,isConnected,i);
-            ans++;
+            if(parnt[i]==i) ans++;
         }
     return ans;
     }
