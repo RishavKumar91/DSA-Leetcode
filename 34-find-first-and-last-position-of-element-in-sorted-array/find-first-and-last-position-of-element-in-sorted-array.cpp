@@ -1,17 +1,23 @@
 class Solution {
 public:
     vector<int> searchRange(vector<int>& nums, int target) {
-        int n = nums.size();
-        priority_queue<int,vector<int>,greater<int>> minH;
-        priority_queue<int> maxH;
-    //    minH.push(-1); maxH.push(-1);
-        if(n==1 && target == nums[0]) return {0,0};
-        for(int i =0;i<n;i++){
-            if(target==nums[i] ){ minH.push(i) ; maxH.push(i);}
+        int start = 0;
+        int last = nums.size()-1;
+        int low = -1,high = -1;
+        while(start<=last){
+            int mi = start + (last-start)/2;
+            if(nums[mi]==target) {last = mi-1; low = mi;}
+            else if(nums[mi] > target) last = mi-1;
+            else start = mi + 1;
         }
-    if(maxH.empty()&&minH.empty()) return {-1,-1};
-    else if(minH.empty()) return {minH.top(),maxH.top()};
-    else if(maxH.empty()) return {minH.top(),maxH.top()};
-    return {minH.top(),maxH.top()};
+        start = 0;
+        last = nums.size()-1;
+        while(start<=last){
+            int mi = start + (last-start)/2;
+            if(nums[mi]==target) {start = mi+1; high = mi;}
+            else if(nums[mi] > target) last = mi-1;
+            else start = mi + 1;
+        }
+    return {low,high};
     }
 };
