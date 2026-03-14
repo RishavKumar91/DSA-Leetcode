@@ -38,11 +38,6 @@ void hlpr(int row ,vector<string> &bor, vector<vector<string>> &ans,int &n){
     vector<vector<string>> solveNQueens(int n) {
         vector<vector<string>> ans;
         vector<string> bor(n, string(n,'.'));
-        for(int i = 0;i<n;i++){
-            for(int j =0;j<n;j++){
-                bor[i][j] = '.';
-            }
-        }
         hlpr(0,bor,ans,n);
         return ans;
     }
