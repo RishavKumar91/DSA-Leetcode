@@ -1,64 +1,49 @@
 class Solution {
 public:
-bool ok(vector<vector<char>> &bor,int row,int col,int n){
-    // for(int j =0;j<col;j++){    // row chck
-    //     if(bor[row][j]=='Q') return 0;
-    // }
-    for(int i =0;i<row;i++){    // col chck
-        if(bor[i][col]=='Q') return 0;
+bool chck(int row,int col , vector<string> &bor,int &n){
+    int i = row-1 , j = col-1;
+    while(i>=0){
+        if(bor[i][col]=='Q' ) return 0;
+        i--;
     }
-    int i =row,j=col;
-    // while(i<n&&j<n){           // SE
-    //     if(bor[i][j]=='Q') return 0;
-    // i++;j++;
-    // }
-    i=row,j=col;
-    // while(i<n&&j>=0){          // SW
-    //     if(bor[i][j]=='Q') return 0;
-    // i++;j--;
-    // }
-    i=row-1,j=col+1;
-    while(i>=0&&j<n){         // NE
+    i= row-1;
+    j = col-1;
+    while(i>=0 && j>=0){
         if(bor[i][j]=='Q') return 0;
-    i--;j++;
+    j--;
+    i--;
     }
-    i=row-1,j=col-1;
-    while(i>=0&&j>=0){        //NW
+    i = row-1;
+    j = col+1;
+    while(i>=0 && j<n){
         if(bor[i][j]=='Q') return 0;
-    i--;j--;
+        i--;
+        j++;
     }
-    return 1;
+return 1;
 }
-void helper(vector<vector<string>> &ans,int n,vector<vector<char>> &bor,int x){
-    if(x==n){
-        vector<string> tmp;
-        for(int i=0;i<n;i++){
-            string s="";
-            for(int j =0;j<n;j++){
-                s.push_back(bor[i][j]);
-            }
-        tmp.push_back(s);
-        }
-        ans.push_back(tmp);
+void hlpr(int row ,vector<string> &bor, vector<vector<string>> &ans,int &n){
+    if(row==n){
+        ans.push_back(bor);
         return;
     }
-    for(int j =0;j<n;j++){
-        if(ok(bor,x,j,n)) {
-            bor[x][j] = 'Q';
-            helper(ans,n,bor,x+1);
-            bor[x][j] = '.';
-            }
-    }      
+    for(int i = 0;i<n;i++){
+        if(chck(row,i,bor,n)){
+            bor[row][i]= 'Q';
+            hlpr(row+1,bor,ans,n);
+            bor[row][i] = '.';
+        }
+    }
 }
     vector<vector<string>> solveNQueens(int n) {
         vector<vector<string>> ans;
-        vector<vector<char>> bor(n, vector<char>(n));
-        for(int i =0;i<n;i++){
+        vector<string> bor(n, string(n,'.'));
+        for(int i = 0;i<n;i++){
             for(int j =0;j<n;j++){
                 bor[i][j] = '.';
             }
         }
-        helper(ans,n,bor,0);
+        hlpr(0,bor,ans,n);
         return ans;
     }
 };
