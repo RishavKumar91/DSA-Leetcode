@@ -20,9 +20,10 @@ void bfs(vector<int> &visited, vector<vector<int>>& isConnected, int start) {
         int n = isConnected.size();
         vector<int> visited(n,0);
         for(int i =0;i<n;i++){
-            if(visited[i]==1) continue;
+            if(visited[i]==0) {
             bfs(visited,isConnected,i);
             ans++;
+            }
         }
     return ans;
     }
