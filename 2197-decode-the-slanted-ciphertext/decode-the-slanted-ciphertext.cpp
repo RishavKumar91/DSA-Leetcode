@@ -3,13 +3,24 @@ public:
     string decodeCiphertext(string encodedText, int rows) {
         int  l = encodedText.size();
         int colum = l/rows;
-        string ans = "";
-        for(int col = 0;col<colum ;col ++ ){
-            for(int j = col ; j<l;j+=colum+1)
-            ans.push_back(encodedText[j]);
+
+        vector<vector<char>> mat(rows,vector<char> (colum,' '));
+        int k = 0;
+        for(int i = 0;i<rows;i++){
+            for(int j = 0 ;j<colum ;j++){
+                mat[i][j] = encodedText[k++];
+            }
         }
-        while( ans.size()!=0  && ans[ans.size()-1]==' ')
-            ans.pop_back();
+
+        string ans = "";
+        for(int i = 0;i<colum;i++){
+            int j = i ;  k  = 0;
+            while(k<rows && j<colum){
+                ans+=mat[k][j];
+                k++;j++;
+            }
+        }
+    while(ans.size() > 0 && ans[ans.size()-1]==' ') ans.pop_back() ;
     return ans;
     }
 };
