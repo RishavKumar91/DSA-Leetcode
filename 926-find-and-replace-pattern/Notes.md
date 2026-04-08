@@ -1,0 +1,1 @@
+<h2>find-and-replace-pattern Notes</h2><hr>[ Time taken: 6hrs 18m 37s ]
