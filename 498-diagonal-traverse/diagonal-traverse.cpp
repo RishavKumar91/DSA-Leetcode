@@ -4,21 +4,30 @@ public:
         int m = mat.size();
         int n = mat[0].size();
         vector<int> ans;
-        vector<vector<int>> v(2*max(n,m) + 1);
-        for(int i = 0;i<m;i++){
-            for(int j = 0;j<n;j++){
-                v[i+j].push_back(mat[i][j]);
+        bool up = 1;
+        int i = 0 ,j =0;
+        while(ans.size()!=m*n){
+            if(up){
+                while(i>=0 && j<n){
+                ans.push_back(mat[i][j]);
+                i--;
+                j++;
             }
-        }
-        for(int i = 0 ;i<2*max(n,m)+1;i++){
-            if(i%2!=0)
-                for(int j = 0 ;j<v[i].size();j++){
-                    ans.push_back(v[i][j]);
-                }
-            else
-                for(int j = v[i].size()-1;j>=0;j--){
-                    ans.push_back(v[i][j]);
-                }
+                if(i==-1 && j==n) {i+=2; j--;} 
+                else if(i==-1) {i++ ; }
+                else {j--; i+=2;}
+            }
+            else {
+                while(i<m && j>=0){
+                ans.push_back(mat[i][j]);
+                i++;
+                j--;
+            }
+                if(i==m && j==-1) {i-- ; j+=2;}
+                else if(j==-1) { j++;}
+                else {j+=2; i--;}
+            }
+            up = !up;
         }
     return ans;
     }
