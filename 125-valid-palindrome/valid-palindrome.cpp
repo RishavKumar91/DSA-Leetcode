@@ -2,14 +2,18 @@ class Solution {
 public:
     bool isPalindrome(string s) {
         int n = s.size();
-        string a = "";
-        for(int i =0;i<n;i++){
-            if(isalnum(s[i])){
-                a.push_back(tolower(s[i]));
+        int j = s.size()-1;
+        int i = 0;
+        while(i<j){
+            while(i<n &&!isalnum(s[i])) i++;
+            while(j>=0 && !isalnum(s[j])) j--;
+
+            if(isalnum(s[i]) && isalnum(s[j])){
+                if(tolower(s[i]) == tolower(s[j])) {i++;j--;}
+                else return 0;
             }
+
         }
-        string b = a;
-        reverse(a.begin(),a.end());
-        return a==b;
+        return 1;
     }
 };
