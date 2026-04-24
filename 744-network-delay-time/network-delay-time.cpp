@@ -15,7 +15,9 @@ public:
         while(!mh.empty()){
             int wgt = mh.top().first;
             int nownode = mh.top().second;
+            
             mh.pop();
+            if (wgt > ans[nownode]) continue;
             for(auto &ngbr: aj[nownode]){
                 if(ngbr.second + wgt < ans[ngbr.first]){
                     ans[ngbr.first] = ngbr.second + wgt ;
