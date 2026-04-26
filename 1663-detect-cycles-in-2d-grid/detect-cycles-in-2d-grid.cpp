@@ -1,32 +1,50 @@
 class Solution {
 public:
+    int m, n;
+    vector<vector<int>> vis;
+
+    bool dfs(int x, int y, int px, int py, vector<vector<char>>& grid){
+        int dx[4] = {1, 0, -1, 0};
+        int dy[4] = {0, 1, 0, -1};
+
+        for(int d = 0; d < 4; d++){
+            int nx = x + dx[d];
+            int ny = y + dy[d];
+
+            if(nx < 0 || ny < 0 || nx >= m || ny >= n) continue;
+            if(grid[nx][ny] != grid[x][y]) continue;
+           
+            if(!vis[nx][ny]){
+                vis[nx][ny]=1;
+                if(dfs(nx, ny, x, y, grid)){
+                    return true;
+                }
+            }
+            else if(nx != px || ny != py){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     bool containsCycle(vector<vector<char>>& grid) {
-        int m = grid.size();
-        int n = grid[0].size();
-        vector<vector<bool>> visit(m, vector<bool>(n, 0));
-        vector<pair<int ,int> > dxn = {{1,0},{0,1},{-1,0},{0,-1}};
-        for(int i = 0;i<m;i++){
-            for(int j = 0;j<n;j++){
-                if(visit[i][j]==0){
-                    queue<tuple<int,int,int,int>> q;
-                    q.push({i,j,-1,-1});
-                    while(!q.empty()){
-                        auto [x,y,px,py] = q.front();
-                        visit[x][y] = 1;
-                        q.pop();
-                        for(auto d : dxn){
-                            int nx = x+d.first , ny = y+d.second;
-                            if(nx<m && nx>=0 && ny<n && ny>=0 && grid[nx][ny]==grid[x][y]){
-                                if(visit[nx][ny]==0 ){
-                                    q.push({nx,ny,x,y});
-                                }
-                                else if(nx!=px || ny!=py) return 1;
-                            }
-                        }
-                    }
+        m = grid.size();
+        n = grid[0].size();
+
+        vis.assign(m, vector<int>(n, 0));
+
+        for(int i = 0; i < m; i++){
+            for(int j = 0; j < n; j++){
+                if(!vis[i][j]){
+                    vis[i][j]=1;
+                    if(dfs(i, j, -1, -1, grid))
+
+                        return true;
                 }
             }
         }
-    return 0;
+
+        return false;
     }
 };
