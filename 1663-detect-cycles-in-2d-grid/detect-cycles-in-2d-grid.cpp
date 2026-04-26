@@ -4,6 +4,8 @@ public:
     vector<vector<int>> vis;
 
     bool dfs(int x, int y, int px, int py, vector<vector<char>>& grid){
+        // vis[x][y] = 1;
+
         int dx[4] = {1, 0, -1, 0};
         int dy[4] = {0, 1, 0, -1};
 
