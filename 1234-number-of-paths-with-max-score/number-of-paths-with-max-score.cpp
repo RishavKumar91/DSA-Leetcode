@@ -4,7 +4,8 @@ int n  , M = 1e9+7;
 vector<vector<pair<int,int>>> dp;
     pair<int,int> hlpr(int i , int j , vector<string>& board){
         if(i==0 && j==0) return {0,1};
-        if(i<0 || j < 0 || board[i][j] == 'X') return {0,0};
+        if(i<0 || j < 0 ) return {0,0};
+        if(board[i][j] == 'X') dp[i][j] = {0,0};
         if(dp[i][j] != make_pair(-1,-1)) return dp[i][j];
         auto [upscor , uppaths] = hlpr(i-1,j,board);
         auto [lftscor, lftpaths] = hlpr(i,j-1,board);
