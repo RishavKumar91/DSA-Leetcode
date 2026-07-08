@@ -15,7 +15,7 @@ int M = 1e9+7;
             if(s[i] != '0' ) {
                 now = (now*10 + s[i]-'0')%M ; d++;
             }
-            cumsum[i] = sum % M;
+            cumsum[i] = sum ;
             curranddigit[i] = {now,d};
         }
         vector<int> ans;
