@@ -21,12 +21,12 @@ int M = 1e9+7;
         vector<int> ans;
         for(auto &q : queries ){
             int l = q[0] , r = q[1];
-        int diffdigit = l==0 ? curranddigit[r].second : curranddigit[r].second - curranddigit[l-1].second ;
+            int diffdigit = l==0 ? curranddigit[r].second : curranddigit[r].second - curranddigit[l-1].second ;
             long long ll = l==0 ? 0 : curranddigit[l-1].first;
             long long rr = curranddigit[r].first;
-            long long put = (rr -  ll* pow10[diffdigit])%M;
-            put = (put+M)%M;
-            ans.push_back( 1LL *  (cumsum[r] - (l==0  ? 0 : cumsum[l-1]) )%M * put%M );
+            long long put = (rr -  (ll* pow10[diffdigit])%M + M)%M;
+            // put = (put+M)%M;
+            ans.push_back(   (cumsum[r] - (l==0  ? 0 : cumsum[l-1]))  * put%M );
         }
         return ans;
     }
