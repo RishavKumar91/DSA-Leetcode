@@ -17,20 +17,21 @@ public:
             int sz = aj[i].size();
             queue<int> q;
             q.push(i);
-            unordered_set<int> s;
-            s.insert(i);
+            // unordered_set<int> s;
+            // s.insert(i);
+            int count = 1;
             while(!q.empty()){
                 int top = q.front();
                 q.pop();
                 if(sz != aj[top].size()){flag = 0 ; }
                 for(auto &ngbr : aj[top]){
                     if(visit[ngbr]==1) continue;
-                    s.insert(ngbr);
+                    count++;
                     visit[ngbr] = 1;
                     q.push(ngbr);
                 }
             }
-        if(sz != s.size()-1) flag = 0;
+        if(sz != count-1) flag = 0;
         if(flag) ans++;
         }
     return ans;
