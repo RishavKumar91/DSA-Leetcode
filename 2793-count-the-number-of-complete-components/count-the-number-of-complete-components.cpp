@@ -1,7 +1,7 @@
 class Solution {
 public:
     int countCompleteComponents(int n, vector<vector<int>>& edges) {
-        vector<list<int>> aj(n);
+        vector<vector<int>> aj(n);
         for(int i = 0 ; i < edges.size() ; i++){
             int u  = edges[i][0];
             int v  = edges[i][1];
@@ -11,7 +11,7 @@ public:
         int ans = 0;
         vector<int> visit(n,0);
         for(int i = 0 ; i < n ; i++){
-            if(visit[i] == 1) continue;
+            if(visit[i] ) continue;
             visit[i]  = 1;
             bool flag = 1;
             int sz = aj[i].size();
@@ -25,7 +25,7 @@ public:
                 q.pop();
                 if(sz != aj[top].size()){flag = 0 ; }
                 for(auto &ngbr : aj[top]){
-                    if(visit[ngbr]==1) continue;
+                    if(visit[ngbr]) continue;
                     count++;
                     visit[ngbr] = 1;
                     q.push(ngbr);
