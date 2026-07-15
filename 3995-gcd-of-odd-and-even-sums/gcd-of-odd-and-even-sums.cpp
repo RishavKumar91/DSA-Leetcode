@@ -1,12 +1,11 @@
 class Solution {
 public:
     int gcdOfOddEvenSums(int n) {
-        int o = n*n;
-        int e = n * (n-1);
-        // int ans;
-        // for(int i = min(o,e);i>=1;i--){
-        //     if(o%i==0 && e%i==0) {ans = i; break;}
-        // }
-        return gcd(o,e);
+        int a = 0 , b = 0 ;
+        for(int i  =  1 ;  i<=n ; i++){
+            a+= i*2 -1 ;
+            b+= i*2;
+        }
+    return __gcd(a,b);
     }
 };
