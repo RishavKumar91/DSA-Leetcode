@@ -1,18 +1,25 @@
 class Solution {
 public:
-vector<int> dp;
-int hlpr(int n){
-    if(n==1 ) return 1;
-    if(dp[n] != -1) return dp[n];
-    int ans = INT_MIN;
-    for(int i = 1 ; i < n ; i++){
-        int nowans = max(hlpr(n-i)*i , i * (n-i));
-        ans = max(ans,nowans);
+    int dp[60] = {-1};
+    int solve(int n) {
+        if (n == 0) {
+            return 1;
+        }
+        if (dp[n] != -1) {
+            return dp[n];
+        }
+        int ans = 0;
+        for (int i = 1; i <= n; i++) {
+            ans = max(ans, i * solve(n - i));
+        }
+        return dp[n] = ans;
     }
-return dp[n] = ans;
-}
     int integerBreak(int n) {
-        dp.resize(n+1,-1);
-        return hlpr(n);
+        int ans = 0;
+        memset(dp, -1, sizeof(dp));
+        for (int i = 1; i < n; i++) {
+            ans = max(ans, i * solve(n - i));
+        }
+        return ans;
     }
 };
