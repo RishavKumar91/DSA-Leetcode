@@ -13,6 +13,7 @@ void hlpr(vector<vector<int>>& grid){
 }
     vector<vector<int>> shiftGrid(vector<vector<int>>& grid, int k) {
         m = grid.size() , n = grid[0].size();
+        k %= (m * n);
         for(int i = 0 ; i < k ; i++) hlpr(grid);
     return grid;
     }
