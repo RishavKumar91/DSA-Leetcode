@@ -1,17 +1,17 @@
 class Solution {
 public:
-void hlpr(int  n , vector<string> & ans,string s,int i ,int j ){
-    if(i>n || j>n) return;
-    if(s.size()== 2*n && i==j){
+vector<string> ans;
+void hlpr(int i ,int j , int n ,string s){
+    if(i > n) return ;
+    if(s.size() == 2*n){
         ans.push_back(s);
-        return ;
+        return;
     }
-    hlpr(n,ans,s+"(",i+1,j);
-    if(j<i) hlpr(n,ans,s+")",i,j+1);
+    hlpr(i+1,j,n,s+"(");
+    if( j < i ) hlpr(i,j+1,n,s+")");
 }
     vector<string> generateParenthesis(int n) {
-        vector<string> ans;
-        hlpr(n,ans,"(",1,0);
-    return ans;
+        hlpr(0,0,n , "");
+        return ans;
     }
 };
