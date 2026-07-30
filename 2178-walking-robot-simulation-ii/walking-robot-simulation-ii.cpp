@@ -32,18 +32,10 @@ bool flag = 0;
     }
     
     string getDir() {
-        if(flag == 0) return "East";
+        // if(flag == 0) return "East";
         if(v[ix][2]==0) return "East";
         else if(v[ix][2]==1) return "North";
         else if(v[ix][2]==2) return "West";
         else return "South";
     }
 };
-
-/**
- * Your Robot object will be instantiated and called as such:
- * Robot* obj = new Robot(width, height);
- * obj->step(num);
- * vector<int> param_2 = obj->getPos();
- * string param_3 = obj->getDir();
- */
