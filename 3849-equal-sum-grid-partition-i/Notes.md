@@ -1,1 +1,1 @@
-<h2>equal-sum-grid-partition-i Notes</h2><hr>[ Time taken: 19hrs 1m 13s ]
+<h2>equal-sum-grid-partition-i Notes</h2><hr>[ Time taken: 4m 40s ]
