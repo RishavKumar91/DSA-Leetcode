@@ -13,10 +13,9 @@ public:
     bool isPalindrome(ListNode* head) {
         ListNode* slow = head;
         ListNode* fast = head;
-        ListNode* prrv = new ListNode(-1); prrv->next  = head;
         while(fast && fast->next){
             fast = fast->next->next ; 
-            slow = slow->next; prrv = prrv->next;
+            slow = slow->next; 
         }
         ListNode* now = slow , * prv = NULL ;
         while(now){
@@ -25,10 +24,10 @@ public:
             prv = now ;
             now = nxt ; 
         }
-        ListNode * p1 = head , *p2 = prv ;
-        while(p2){
-            if(p2->val != p1->val) return 0;
-            p1 = p1->next ; p2 = p2->next;
+        slow = head ; fast = prv ;
+        while(fast){
+            if(fast->val != slow->val) return 0;
+            slow = slow->next ; fast = fast->next;
         }
     return 1;
     }
