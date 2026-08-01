@@ -2,7 +2,7 @@ class Solution {
 public:
 int n ;
 vector<vector<int>> dp ; 
-    int hlpr(int i , int j , vector<int>& nums ){
+    int hlpr(int i , int j , vector<int> nums ){
         if(i > j) return 0 ;
         if(i==j) return nums[i];
         if(dp[i][j] != -1 ) return dp[i][j];
