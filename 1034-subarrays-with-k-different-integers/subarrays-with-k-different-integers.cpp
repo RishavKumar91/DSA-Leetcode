@@ -1,7 +1,9 @@
 class Solution {
 public:
 int n ;
-    int sub(vector<int>& nums, int k){
+    
+    int subarraysWithKDistinct(vector<int>& nums, int k) {
+        n = nums.size();
         int j = 0 , i = 0 , ans = 0 , ni = 0;
         unordered_map<int,int> mp;
         while(j<n){
@@ -19,10 +21,6 @@ int n ;
             if(mp.size() == k ) ans += (1+i-ni);
         j++;
         }
-    return ans;
-    }
-    int subarraysWithKDistinct(vector<int>& nums, int k) {
-        n = nums.size();
-        return sub(nums,k) ;
+        return ans ;
     }
 };
