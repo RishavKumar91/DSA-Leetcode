@@ -8,25 +8,16 @@ public:
         vector<vector<int>> left(n + 1), right(n + 1);
 
         for (int mask = 0; mask < (1 << n); mask++) {
-            int cnt = 0, sum = 0;
+            int cnt = 0, sum1 = 0 , sum2 = 0;
             for (int i = 0; i < n; i++) {
                 if (mask & (1 << i)) {
                     cnt++;
-                    sum += nums[i];
+                    sum1 += nums[i];
+                    sum2 += nums[i+n];
                 }
             }
-            left[cnt].push_back(sum);
-        }
-
-        for (int mask = 0; mask < (1 << n); mask++) {
-            int cnt = 0, sum = 0;
-            for (int i = 0; i < n; i++) {
-                if (mask & (1 << i)) {
-                    cnt++;
-                    sum += nums[n + i];
-                }
-            }
-            right[cnt].push_back(sum);
+            left[cnt].push_back(sum1);
+            right[cnt].push_back(sum2);
         }
 
         for (int i = 0; i <= n; i++)
