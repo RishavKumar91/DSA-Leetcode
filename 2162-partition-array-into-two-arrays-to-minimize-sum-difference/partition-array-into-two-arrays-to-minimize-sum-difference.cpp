@@ -32,7 +32,7 @@ public:
             for(auto &mm1 : m1.second){
                 int currsubsum = mm1;
                 auto &m2  =  mp2[fincount] ;
-                    int f = (SUM - 2*currsubsum) / 2 ;
+                    int f = SUM / 2 - currsubsum;
                     int l = lower_bound(m2.begin()  ,  m2.end()  , f) - m2.begin();
 
                     if(l >=0 && l< mp2[fincount].size()) ans = min(ans ,  abs(SUM - 2*(currsubsum + mp2[fincount][l]))) ; 
