@@ -1,7 +1,7 @@
 class Solution {
 public:
     vector<int> remainingMethods(int n, int k, vector<vector<int>>& invocations) {
-        vector<list<int>> aj(n+1);
+        vector<vector<int>> aj(n+1);
         for(auto &invocation : invocations){
             aj[invocation[0]].push_back(invocation[1]);
         }
