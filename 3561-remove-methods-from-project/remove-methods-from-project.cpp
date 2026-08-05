@@ -1,33 +1,49 @@
 class Solution {
 public:
     vector<int> remainingMethods(int n, int k, vector<vector<int>>& invocations) {
-        vector<vector<int>> aj(n+1);
-        vector<int> total(n+1,0);
-        for(auto &invocation : invocations) {
-            int u = invocation[0] ,  v = invocation[1];
-            total[u]--; total[v]++; aj[u].push_back(v);
+
+        vector<vector<int>> adj(n);
+        vector<int> total(n, 0);
+
+        for (auto &e : invocations) {
+            adj[e[0]].push_back(e[1]);
+            total[e[0]]--;
+            total[e[1]]++;
         }
-        vector<bool> visit(n+1,0);
-        queue<int> q; q.push(k); visit[k] = 1;
-        while(!q.empty()){
-            int now = q.front() ; q.pop(); 
-            for(int &ngbr : aj[now]){
-                if(!visit[ngbr]) {
-                    visit[ngbr] = 1;
-                    q.push(ngbr);
+
+        vector<char> vis(n, 0);
+        queue<int> q;
+        q.push(k);
+        vis[k] = 1;
+
+        while (!q.empty()) {
+            int u = q.front();
+            q.pop();
+
+            for (int v : adj[u]) {
+                if (!vis[v]) {
+                    vis[v] = 1;
+                    q.push(v);
                 }
             }
         }
-        vector<int> ans,anss;
-        int totalsum = 0;
-        for(int i = 0 ; i < n ; i++){
-            cout<<total[i] <<" ,";
-            if(visit[i]) totalsum += total[i];
-            ans.push_back(i);
-            if(visit[i] == 0) anss.push_back(i);
+
+        int sum = 0;
+        vector<int> rem;
+        rem.reserve(n);
+
+        for (int i = 0; i < n; i++) {
+            if (vis[i])
+                sum += total[i];
+            else
+                rem.push_back(i);
         }
-        
-        if(totalsum == 0) return anss;
-        return ans;
+
+        if (sum == 0)
+            return rem;
+
+        vector<int> all(n);
+        iota(all.begin(), all.end(), 0);
+        return all;
     }
 };
