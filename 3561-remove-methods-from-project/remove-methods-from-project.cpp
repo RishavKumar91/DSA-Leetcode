@@ -42,8 +42,8 @@ public:
         if (sum == 0)
             return rem;
 
-        vector<int> all(n);
-        iota(all.begin(), all.end(), 0);
-        return all;
+        rem.assign(n,0);
+        iota(rem.begin(), rem.end(), 0);
+        return rem;
     }
 };
