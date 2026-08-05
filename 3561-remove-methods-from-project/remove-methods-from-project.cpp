@@ -1,53 +1,33 @@
 class Solution {
 public:
-    void bfs(int src, vector<vector<int>>& adj, vector<char>& vis) {
-        queue<int> q;
-        q.push(src);
-        vis[src] = 1;
-
-        while (!q.empty()) {
-            int u = q.front();
-            q.pop();
-
-            for (int v : adj[u]) {
-                if (!vis[v]) {
-                    vis[v] = 1;
-                    q.push(v);
+    vector<int> remainingMethods(int n, int k, vector<vector<int>>& invocations) {
+        vector<list<int>> aj(n+1);
+        vector<int> total(n+1,0);
+        for(auto &invocation : invocations) {
+            int u = invocation[0] ,  v = invocation[1];
+            total[u]--; total[v]++; aj[u].push_back(v);
+        }
+        vector<bool> visit(n+1,0);
+        queue<int> q; q.push(k); visit[k] = 1;
+        while(!q.empty()){
+            int now = q.front() ; q.pop(); 
+            for(int &ngbr : aj[now]){
+                if(!visit[ngbr]) {
+                    visit[ngbr] = 1;
+                    q.push(ngbr);
                 }
             }
         }
-    }
-
-    vector<int> remainingMethods(int n, int k, vector<vector<int>>& invocations) {
-
-        vector<vector<int>> adj(n);
-
-        for (auto &e : invocations)
-            adj[e[0]].push_back(e[1]);
-
-        vector<char> vis(n, 0);
-        bfs(k, adj, vis);
-
-        bool removable = true;
-
-        for (auto &e : invocations) {
-            if (!vis[e[0]] && vis[e[1]]) {
-                removable = false;
-                break;
-            }
+        vector<int> ans,anss;
+        int totalsum = 0;
+        for(int i = 0 ; i < n ; i++){
+            cout<<total[i] <<" ,";
+            if(visit[i]) totalsum += total[i];
+            ans.push_back(i);
+            if(visit[i] == 0) anss.push_back(i);
         }
-
-        vector<int> ans;
-
-        if (!removable) {
-            for (int i = 0; i < n; i++)
-                ans.push_back(i);
-        } else {
-            for (int i = 0; i < n; i++)
-                if (!vis[i])
-                    ans.push_back(i);
-        }
-
+        
+        if(totalsum == 0) return anss;
         return ans;
     }
 };
