@@ -1,7 +1,7 @@
 class Solution {
 public:
     vector<int> remainingMethods(int n, int k, vector<vector<int>>& invocations) {
-        vector<list<int>> aj(n+1);
+        vector<vector<int>> aj(n+1);
         vector<int> total(n+1,0);
         for(auto &invocation : invocations) {
             int u = invocation[0] ,  v = invocation[1];
