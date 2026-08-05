@@ -1,33 +1,53 @@
 class Solution {
 public:
-    vector<int> remainingMethods(int n, int k, vector<vector<int>>& invocations) {
-        vector<vector<int>> aj(n+1);
-        for(auto &invocation : invocations){
-            aj[invocation[0]].push_back(invocation[1]);
-        }
-        vector<int>  anss ;
-        vector<bool> visit(n+1,0);
+    void bfs(int src, vector<vector<int>>& adj, vector<char>& vis) {
         queue<int> q;
-        visit[k] = 1; q.push(k);
-        while(!q.empty()){
-            int now = q.front(); q.pop();
-            // ans[now] = 0;
-            for(int & ngbr :  aj[now]){
-                if(visit[ngbr] == 0){
-                    q.push(ngbr);
-                    visit[ngbr] = 1;
+        q.push(src);
+        vis[src] = 1;
+
+        while (!q.empty()) {
+            int u = q.front();
+            q.pop();
+
+            for (int v : adj[u]) {
+                if (!vis[v]) {
+                    vis[v] = 1;
+                    q.push(v);
                 }
             }
         }
-        for(auto &invocation : invocations){
-            if(visit[invocation[0]] == 0 && visit[invocation[1]] ==1 ){
-                visit.assign(n+1,0);
+    }
+
+    vector<int> remainingMethods(int n, int k, vector<vector<int>>& invocations) {
+
+        vector<vector<int>> adj(n);
+
+        for (auto &e : invocations)
+            adj[e[0]].push_back(e[1]);
+
+        vector<char> vis(n, 0);
+        bfs(k, adj, vis);
+
+        bool removable = true;
+
+        for (auto &e : invocations) {
+            if (!vis[e[0]] && vis[e[1]]) {
+                removable = false;
                 break;
             }
         }
-        for(int i = 0 ; i < n ; i++){
-            if(visit[i] == 0 ) anss.push_back(i);
+
+        vector<int> ans;
+
+        if (!removable) {
+            for (int i = 0; i < n; i++)
+                ans.push_back(i);
+        } else {
+            for (int i = 0; i < n; i++)
+                if (!vis[i])
+                    ans.push_back(i);
         }
-        return anss;
+
+        return ans;
     }
 };
