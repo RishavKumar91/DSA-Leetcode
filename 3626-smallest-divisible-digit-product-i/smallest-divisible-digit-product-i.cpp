@@ -9,7 +9,7 @@ int pro(int n ){
 return ans ;
 }
     int smallestNumber(int n, int t) {
-        for(int start = n ; start < 10000 ; start++){
+        for(int start = n ; start < n+10 ; start++){
             int p = pro(start)  ;
             if(p%t ==0 ) return start;
         }
