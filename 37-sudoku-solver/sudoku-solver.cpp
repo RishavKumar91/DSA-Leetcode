@@ -1,6 +1,6 @@
 class Solution {
 public:
-bool saf(int row , int col , vector<vector<char>>& board , char ch ){
+bool saf(int row , int col , vector<vector<char>>& board , char &ch ){
     for(int i = 0 ; i < 9 ; i++){
         if(board[row][i] == ch || board[i][col] == ch) return 0;
     }
