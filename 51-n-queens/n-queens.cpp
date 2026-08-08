@@ -21,7 +21,7 @@ bool chck(int row , int col , vector<string> &bor){
     }
     return 1;
 }
-void backtrack(vector<string> bor , int row ){
+void backtrack(vector<string> &bor , int row ){
     int n = bor.size();
     if(n==row){
         ans.push_back(bor);
