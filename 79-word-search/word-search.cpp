@@ -7,13 +7,13 @@ int m , n ;
         if(a == word.size()-1){
             return 1;
         }
+        visit[i][j] = 1;
         for(auto &d : dxn){
             int ni = i + d.first, nj = j + d.second;
             if(ni >= m || nj >=n || ni < 0 || nj < 0 || visit[ni][nj]) continue;
-            visit[i][j] = 1;
-            if(hlpr(board,word,a+1,ni,nj,visit)) return 1;
-            visit[i][j] = 0;
+            if(hlpr(board,word,a+1,ni,nj,visit)) return 1; 
         }
+        visit[i][j] = 0;
     return 0;
     }
     bool exist(vector<vector<char>>& board, string word) {
