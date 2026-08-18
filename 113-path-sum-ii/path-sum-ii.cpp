@@ -11,25 +11,32 @@
  */
 class Solution {
 public:
-    void hlpr(TreeNode * root,vector<vector<int>> &ans,int now,int &targetSum,vector<int> v){
-        if(root==NULL ) return;
-        if(!root->left && !root->right){
-            now+=root->val;
-            v.push_back(root->val);
-            if(now == targetSum){
-               ans.push_back(v);
-               return ;
-            }
+    vector<vector<int>> ans ;
+    void hlpr(TreeNode* root , int t , vector<int> &v ){
+        if(!root){
+            // if(t==0) ans.push_back(v);
+            return ;
         }
-        now+=root->val;
+        if(!root->left && !root->right){
+            if(root->val == t) {
+                v.push_back(root->val);
+                ans.push_back(v);
+                v.pop_back();
+                }
+            return ;
+        }
         v.push_back(root->val);
-        hlpr(root->left,ans,now,targetSum,v);
-        hlpr(root->right,ans,now,targetSum,v);
+        hlpr(root->left,t-root->val,v);
+        v.pop_back();
+
+        v.push_back(root->val);
+        hlpr(root->right,t-root->val,v);
+        v.pop_back();
     }
     vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
-        vector<vector<int>> ans;
+        if(!root) return ans;
         vector<int> v;
-        hlpr(root,ans,0,targetSum,v);
+        hlpr(root , targetSum , v);
         return ans;
     }
 };
