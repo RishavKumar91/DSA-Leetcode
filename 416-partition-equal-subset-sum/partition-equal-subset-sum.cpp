@@ -1,22 +1,21 @@
 class Solution {
 public:
-bool chck(vector<int> &nums , int target,int ix,int now,vector<vector<int>> & dp){
-    if(target==now) return 1;
-    if(ix==nums.size()) return 0;
-    if(dp[ix][now] != -1) return dp[ix][now];
-    bool skip = chck(nums,target,ix+1,now,dp);
-    bool take = 0;
-    if(nums[ix]+now>target){
-        take = chck(nums,target,ix+1,now,dp);
+int TOTAL ;
+int n ;
+vector<vector<int>> p;
+    int hlpr(int ix , vector<int> &nums,int TOTAL ){
+        if(TOTAL == 0) return 1;
+        if(ix >= n || TOTAL < 0) return 0;
+        if( p[ix][TOTAL] != -1 ) return p[ix][TOTAL];
+        int skip = hlpr(ix+1,nums,TOTAL);
+        int take = hlpr(ix+1,nums,TOTAL-nums[ix]);
+        return p[ix][TOTAL] =  skip || take ;
     }
-    else take = chck(nums,target,ix+1,now+nums[ix],dp);
-    return dp[ix][now] =  take || skip;
-}
     bool canPartition(vector<int>& nums) {
-        int sum = 0;
-        for(int x : nums) sum +=x;
-        if(sum%2==1) return 0;
-        vector<vector<int>> dp(nums.size()+1, vector<int>(sum/2 +1, -1));
-        return chck(nums,sum/2,0,0,dp);
+        n = nums.size();
+        TOTAL = accumulate(nums.begin() , nums.end(),0);
+        if(TOTAL & 1) return 0;
+        p.resize(n+1 , vector<int> ((TOTAL/2) + 1 , -1));
+        return hlpr(0,nums,TOTAL/2);
     }
 };
