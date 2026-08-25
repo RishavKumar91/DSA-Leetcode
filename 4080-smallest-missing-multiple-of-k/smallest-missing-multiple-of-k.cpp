@@ -1,15 +1,15 @@
 class Solution {
 public:
     int missingMultiple(vector<int>& nums, int k) {
-        int  n = nums.size();
-        unordered_set<int> s;
-        for(int i =0;i<n;i++){
-            s.insert(nums[i]);
+        int n = nums.size();
+        unordered_set<int> st;
+        for(int i = -0 ; i < n ;i++){
+            st.insert(nums[i]);
         }
-        int ans = k;
-        while(s.count(ans)){
-            ans+=k;
+        int s = k ;
+        while(st.count(s)){
+            s += k ;
         }
-    return ans;
+    return s;
     }
 };
