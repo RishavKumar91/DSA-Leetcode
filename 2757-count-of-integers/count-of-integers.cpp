@@ -15,7 +15,7 @@ int M = 1e9+7;
 
     return s;
 }
-    int hlpr(string &s , int ix , bool tight, int sum, int min_sum, int max_sum){
+    int hlpr(string &s , int ix , bool tight, int sum, int &min_sum, int &max_sum){
         if(ix == s.size()){
             return (sum <= max_sum && sum >= min_sum) ;
         }
