@@ -1,28 +1,28 @@
 class LRUCache {
 public:
-    queue<int> q ;
-    int sz ;
-    unordered_map<int,int> mp , frq ;
+int sz ;
+unordered_map<int,int > KV , frq ;
+queue<int> q;
     LRUCache(int capacity) {
         sz = capacity;
     }
     
     int get(int key) {
-        if(frq.count(key) == 0 ) return -1;
+        if(!KV.count(key)) return -1;
         q.push(key);
         frq[key]++;
-        return mp[key];
+        return KV[key];
     }
     
     void put(int key, int value) {
+        KV[key] = value;
         q.push(key);
-        mp[key] = value;
         frq[key]++;
-        while(frq.size() > sz){
-            int fr = q.front();
-            q.pop();
-            frq[fr]--;
-            if(frq[fr] == 0) {frq.erase(fr); }
+        while(frq.size() > sz ){
+                int fr = q.front();
+                q.pop();
+                frq[fr]--;
+                if(frq[fr] == 0){ frq.erase(fr); KV.erase(fr); }
         }
     }
 };
