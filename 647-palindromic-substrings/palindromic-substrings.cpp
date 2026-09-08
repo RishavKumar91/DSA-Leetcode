@@ -1,16 +1,19 @@
 class Solution {
 public:
 int n;
+vector<vector<int>> dp ;
     bool chck(int i , int j , string &s){
+        if(dp[i][j] != -1) return dp[i][j] ;
         while(i<j ){
-            if(s[i] != s[j]) return 0;
+            if(s[i] != s[j]) return dp[i][j] = 0;
             i++;
             j--;
         }
-    return 1;
+    return dp[i][j] = 1;
     }
     int countSubstrings(string s) {
         n = s.size();
+        dp.resize(n+1,vector<int> (n+1,-1));
         int ans = 0 ;
         for(int i = 0 ; i < n ; i++){
             for(int j = i ; j < n ; j++){
