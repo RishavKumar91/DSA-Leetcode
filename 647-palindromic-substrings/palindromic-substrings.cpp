@@ -10,7 +10,7 @@ vector<vector<int>> dp ;
             i++;
             j--;
         }
-    return dp[i][j] = 1;
+    return dp[ii][jj] = 1;
     }
     int countSubstrings(string s) {
         n = s.size();
