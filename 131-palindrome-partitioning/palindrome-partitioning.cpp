@@ -10,7 +10,7 @@ int n;
         }
     return 1;
     }
-    void hlpr(vector<string> &st ,string &s, string &tmp , int startix){
+    void hlpr(vector<string> &st ,string &s , int startix){
         if(startix == n){
             ans.push_back(st);
             return ;
@@ -18,7 +18,7 @@ int n;
         for(int lastix = startix ; lastix < n ; lastix++){
             if(!ispalindrome(s,startix,lastix)) continue;
             st.push_back(s.substr(startix,lastix-startix+1));
-            hlpr(st,s,tmp,lastix+1);
+            hlpr(st,s,lastix+1);
             st.pop_back();
         }
     }
@@ -26,7 +26,7 @@ int n;
         string tmp ;
         n = s.size();
         vector<string> st;
-        hlpr(st,s,tmp,0);
+        hlpr(st,s,0);
         return ans;
     }
 };
