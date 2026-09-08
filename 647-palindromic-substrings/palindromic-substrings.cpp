@@ -3,9 +3,10 @@ public:
 int n;
 vector<vector<int>> dp ;
     bool chck(int i , int j , string &s){
-        if(dp[i][j] != -1) return dp[i][j] ;
+        int ii = i , jj = j ;
+        if(dp[i][j] != -1) return dp[ii][jj] ;
         while(i<j ){
-            if(s[i] != s[j]) return dp[i][j] = 0;
+            if(s[i] != s[j]) return dp[ii][jj] = 0;
             i++;
             j--;
         }
