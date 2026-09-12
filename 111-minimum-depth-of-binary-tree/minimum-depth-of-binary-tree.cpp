@@ -11,17 +11,20 @@
  */
 class Solution {
 public:
-    int lvl(TreeNode *root){
-        if(!root) return 0;
-        if(!root->left) return 1 + lvl(root->right);
-        if(!root->right) return 1 + lvl(root->left);
-        int a = lvl(root->left);
-        int b = lvl(root->right);
+    // int lvl(TreeNode *root){
+    //     if(!root) return 0;
+    //     if(!root->left) return 1 + lvl(root->right);
+    //     if(!root->right) return 1 + lvl(root->left);
+    //     int a = lvl(root->left);
+    //     int b = lvl(root->right);
 
-        return 1 + min(a, b);
-        return 1 + min(lvl(root->left) , lvl(root->right));
-    }
+    //     return 1 + min(a, b);
+    //     return 1 + min(lvl(root->left) , lvl(root->right));
+    // }
     int minDepth(TreeNode* root) {
-        return lvl(root);
+        if(!root) return 0;
+        if(!root->left) return 1 + minDepth(root->right);
+        if(!root->right) return 1 + minDepth(root->left);
+        return 1 + min(minDepth(root->left) , minDepth(root->right)) ;
     }
 };
