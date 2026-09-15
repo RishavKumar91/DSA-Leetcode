@@ -26,6 +26,7 @@ vector<vector<int>> dpal;
     }
     int maxPalindromes(string s, int k) {
         n = s.size();
+        if(k == 1) return n ;
         dp.resize(n+1,vector<int> (n+1,-1));
         dpal.resize(n+1,vector<int> (n+1,-1));
         for(int i = n - 1; i >= 0; i--) {
