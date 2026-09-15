@@ -2,20 +2,7 @@ class Solution {
 public:
 int n ;
 vector<vector<int>> dp;
-vector<vector<int>> dpal;
-    // bool ispalin(int i , int j  , string &s){
-    //     if(dpal[i][j] != -1) return dpal[i][j];
-    //     while(i<j){
-    //         if(s[i] == s[j]){
-    //             i++;
-    //             j--;
-    //         }
-    //         else{
-    //             return dpal[i][j] =  0;
-    //         }
-    //     }
-    // return dpal[i][j] =  1;
-    // }
+vector<vector<bool>> dpal;
     int hlpr(string &s , int k , int i , int j){
         if(i >= n) return 0;
         if(j >= n) return  hlpr(s,k,i+1,i+k-1);
@@ -28,7 +15,7 @@ vector<vector<int>> dpal;
         n = s.size();
         if(k == 1) return n ;
         dp.resize(n+1,vector<int> (n+1,-1));
-        dpal.resize(n+1,vector<int> (n+1,-1));
+        dpal.resize(n+1,vector<bool> (n+1,-1));
         for(int i = n - 1; i >= 0; i--) {
             dpal[i][i] = 1;
 
