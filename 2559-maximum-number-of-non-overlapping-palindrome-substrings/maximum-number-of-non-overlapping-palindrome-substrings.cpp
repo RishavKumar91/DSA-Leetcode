@@ -36,6 +36,6 @@ vector<vector<int>> dpal;
                              (j - i == 1 || dpal[i + 1][j - 1]);
             }
         }
-        return hlpr(s,k,0,0);
+        return hlpr(s,k,0,k-1);
     }
 };
