@@ -17,11 +17,11 @@ vector<vector<int>> dpal;
     // return dpal[i][j] =  1;
     // }
     int hlpr(string &s , int k , int i , int j){
-        if(i==n) return 0;
+        if(i >= n) return 0;
+        if(j >= n) return  hlpr(s,k,i+1,i+1);
         if(dp[i][j] != -1) return dp[i][j] ; 
-        if(j==n) return dp[i][j] =  hlpr(s,k,i+1,i+1);
         if( !dpal[i][j] || j-i+1 < k ) return dp[i][j] =  hlpr(s,k,i,j+1) ;
-        if(dpal[i][j] ) return dp[i][j] = max( 1 + hlpr(s,k,j+1,j+1) , hlpr(s,k,i,j+1) ) ;
+        if(dpal[i][j] ) return dp[i][j] = max( 1 + hlpr(s,k,j+1,j+k) , hlpr(s,k,i,j+1) ) ;
         return dp[i][j] =  hlpr(s,k,i,j+1) ;
     }
     int maxPalindromes(string s, int k) {
