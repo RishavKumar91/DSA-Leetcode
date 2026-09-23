@@ -5,6 +5,7 @@ int n;
         long long count = 0 ;
         for(int i = 0 ; i < n ; i++){
             if(can[i] >= mi) count += (can[i]/mi);
+            if(count >= k) return true;
         }
     return count >= k ;
     }
