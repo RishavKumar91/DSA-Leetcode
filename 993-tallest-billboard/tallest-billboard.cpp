@@ -1,33 +1,47 @@
 class Solution {
 public:
-    int n; 
-    int t[21][10003];
+    int n;
+    int total;
+    vector<vector<int>> dp;
+
     int solve(vector<int>& rods, int i, int diff) {
 
+        // All rods processed
         if (i == n) {
-            if (diff == 0)
-                return 0;
-
-            return INT_MIN;
+            return diff == 0 ? 0 : -1e9;
         }
-        
-        if( t[i][diff+5000] != -1)
-            return  t[i][diff+5000];
-        
-        int ans = 0;
 
-        int nothing     = solve(rods, i + 1 , diff);
-        int in_rod_1    = rods[i] + solve(rods, i + 1 , diff + rods[i]);
-        int not_in_rod1 =  solve(rods, i + 1 , diff - rods[i]);
+        // Shift negative diff into valid index
+        int idx = diff + total;
 
-        return t[i][diff+5000] = max({nothing, in_rod_1, not_in_rod1});
+        if (dp[i][idx] != -1)
+            return dp[i][idx];
+
+        // 1. Don't take the rod
+        int skip = solve(rods, i + 1, diff);
+
+        // 2. Put rod on first billboard
+        int take1 = rods[i] +
+                    solve(rods, i + 1, diff + rods[i]);
+
+        // 3. Put rod on second billboard
+        int take2 = solve(rods, i + 1, diff - rods[i]);
+
+        return dp[i][idx] = max({skip, take1, take2});
     }
-    
+
     int tallestBillboard(vector<int>& rods) {
+
         n = rods.size();
-        
-        memset(t, -1, sizeof(t));
-        
+
+        total = accumulate(rods.begin(), rods.end(), 0);
+
+        // diff ranges from -total to +total
+        dp = vector<vector<int>>(
+            n,
+            vector<int>(2 * total + 1, -1)
+        );
+
         return solve(rods, 0, 0);
     }
 };
