@@ -1,37 +1,33 @@
 class Solution {
 public:
-    int n;
-    unordered_map<string, int> dp;
+    int n; 
+    int t[21][10003];
+    int solve(vector<int>& rods, int i, int diff) {
 
-    int hlpr(int i, int diff, vector<int>& rods) {
+        if (i == n) {
+            if (diff == 0)
+                return 0;
 
-        if(i == n)
-            return diff == 0 ? 0 : -1e9;
+            return INT_MIN;
+        }
+        
+        if( t[i][diff+5000] != -1)
+            return  t[i][diff+5000];
+        
+        int ans = 0;
 
-        string key = to_string(i) + "," + to_string(diff);
+        int nothing     = solve(rods, i + 1 , diff);
+        int in_rod_1    = rods[i] + solve(rods, i + 1 , diff + rods[i]);
+        int not_in_rod1 = rods[i] + solve(rods, i + 1 , diff - rods[i]);
 
-        if(dp.count(key))
-            return dp[key];
-
-        int take1 = rods[i] + hlpr(i + 1,
-                                    diff + rods[i],
-                                    rods);
-
-        int take2 = hlpr(i + 1,
-                         diff - rods[i],
-                         rods);
-
-        int skip = hlpr(i + 1,
-                        diff,
-                        rods);
-
-        return dp[key] = max({take1, take2, skip});
+        return t[i][diff+5000] = max({nothing, in_rod_1, not_in_rod1});
     }
-
+    
     int tallestBillboard(vector<int>& rods) {
-
         n = rods.size();
-
-        return hlpr(0, 0, rods);
+        
+        memset(t, -1, sizeof(t));
+        
+        return solve(rods, 0, 0)/2;
     }
 };
