@@ -11,6 +11,8 @@ vector<int> dp ;
     return dp[n] = hlpr(1)  + hlpr(n-1) + n-1 ;
     }
     int minCost(int n) {
+        return 1LL * n * (n - 1) / 2;
+
         dp.resize(n+1,-1);
         return hlpr(n);
     }
