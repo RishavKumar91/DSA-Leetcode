@@ -6,9 +6,9 @@ public:
             return a[1] < b[1];
             // return a[0] < b[0];
         });
-        for(auto i : points){
-            cout<<i[0]<<"->"<<i[1]<<" ";
-        }
+        // for(auto i : points){
+        //     cout<<i[0]<<"->"<<i[1]<<" ";
+        // }
         int ans = 1 , last = points[0][1], n = points.size();
         for(int i = 1 ; i < n ; i++){
             if(points[i][0] > last){
