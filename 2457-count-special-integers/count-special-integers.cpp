@@ -1,23 +1,26 @@
 class Solution {
 public:
-string s;
-    int hlpr(int ix , bool tight , bool LZ , int mask ){
-        if(ix == s.size()) return 1 ;
-        int limit = tight ? s[ix]-'0' : 9 ;
-        int ans = 0;
-        for(int d = 0 ; d <= limit ; d++){
-            int ntight = tight && d == s[ix]-'0';
-            if(LZ && d==0){
-                ans += hlpr(ix+1 , ntight , 1 , mask );
-                continue;
-            }
-            if( mask & (1<<d) ) continue;
-            ans += hlpr(ix+1,ntight , 0  , mask | (1<<d) );
+int sz ;
+string num;
+vector<vector<vector<vector<int>>>> dp ; 
+    int hlpr(int ix , bool LZ , bool tight , int mask ){
+        if(ix == sz) return 1;
+        // if( dp[ix][LZ][tight] == -1 ) return dp[ix][LZ][tight] ;
+        int limit = tight ? num[ix]-'0' : 9 ; 
+        int ans = 0 ;
+        for(int i = 0 ; i <= limit ; i++ ){
+            bool nLZ = LZ && i == 0 ; 
+            bool ntight = tight && i == limit ; 
+            if(nLZ ) ans += hlpr(ix+1,nLZ , ntight , mask );
+            else if(mask & (1<<i)) continue;
+            else ans += hlpr(ix+1,nLZ , ntight , mask | (1<<i));
         }
-    return ans;
+    return dp[ix][LZ][tight][mask] =  ans;
     }
     int countSpecialNumbers(int n) {
-        s = to_string(n);
-        return hlpr(0,1,1,0)-1;
+        num = to_string(n);
+        sz = num.size();
+        dp.resize(sz+1,vector<vector<vector<int>>> (2,vector<vector<int>> (2,vector<int> (1025,-1)))) ; 
+        return hlpr(0,1,1,0) - 1;
     }
 };
