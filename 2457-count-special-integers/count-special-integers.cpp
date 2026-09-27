@@ -5,7 +5,7 @@ string num;
 vector<vector<vector<vector<int>>>> dp ; 
     int hlpr(int ix , bool LZ , bool tight , int mask ){
         if(ix == sz) return 1;
-        // if( dp[ix][LZ][tight] == -1 ) return dp[ix][LZ][tight] ;
+        if( dp[ix][LZ][tight][mask] != -1 ) return dp[ix][LZ][tight][mask] ;
         int limit = tight ? num[ix]-'0' : 9 ; 
         int ans = 0 ;
         for(int i = 0 ; i <= limit ; i++ ){
