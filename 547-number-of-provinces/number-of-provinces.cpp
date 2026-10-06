@@ -18,7 +18,7 @@ void Union(int u,int v){
         parnt.assign(V,0); siz.assign(V,1);
         for(int i = 0 ; i < V ; i++) parnt[i] = i ;
         for(int i = 0 ; i < V ; i++){
-            for(int j = 0 ; j < V ; j++){
+            for(int j = i+1 ; j < V ; j++){
                 if(isConnected[i][j] == 1) Union(i,j);
             }
         }
