@@ -1,18 +1,21 @@
 class Solution {
 public:
-vector<int> parnt ; 
+vector<int> parnt ,siz ; 
 int find(int i){
     if(parnt[i] == i) return i;
     return parnt[i] = find(parnt[i]);
 }
-void Union(int a, int b){
-    a = find(a);
-    b = find(b);
-    if(a!=b) parnt[a] = b ;
+void Union(int u,int v){
+    u = find(u);
+    v = find(v);
+    if(u!=v){
+        if(siz[u]>=siz[v]) { parnt[v] =u ; siz[u] += siz[v];}
+        else { parnt[u] = v ; siz[v] += siz[u];}
+    }
 }
     int findCircleNum(vector<vector<int>>& isConnected) {
         int V = isConnected.size();
-        parnt.assign(V,0);
+        parnt.assign(V,0); siz.assign(V,1);
         for(int i = 0 ; i < V ; i++) parnt[i] = i ;
         for(int i = 0 ; i < V ; i++){
             for(int j = 0 ; j < V ; j++){
