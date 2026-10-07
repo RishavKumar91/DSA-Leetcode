@@ -11,23 +11,20 @@
  */
 class Solution {
 public:
-int ans = 0 ;
-    void hlpr(TreeNode *root , long long t){
-        
+int ans ; 
+    void hlpr(TreeNode* root, long long t){
         if(!root) return ;
-        t = t-root->val;
-        if(t == 0){
-            ans++;
-        }
-        hlpr(root->left , t);
+        t -= root->val;
+        if(t == 0) ans++;
+        hlpr(root->left,t);
         hlpr(root->right,t);
     }
-    int pathSum(TreeNode* root, int ta) {
-        if(!root) return 0;
-        long long t = 0LL + ta;
-        hlpr(root , t);
-        pathSum(root->left , t);
-        pathSum(root->right , t );
-        return ans ;
+    int pathSum(TreeNode* root, int targetSum) {
+        if(!root) return NULL;
+        long long t = targetSum;
+        hlpr(root,t);
+        pathSum(root->left,t);
+        pathSum(root->right,t);
+    return ans;
     }
 };
