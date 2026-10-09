@@ -32,7 +32,6 @@ class Solution {
                 }
             }
         }
-        System.out.println(aj);
     return Arrays.copyOfRange(ans, 1, n + 1);
     }
 }
