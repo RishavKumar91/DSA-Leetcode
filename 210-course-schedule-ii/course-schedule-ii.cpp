@@ -1,26 +1,31 @@
 class Solution {
 public:
-    vector<int> findOrder(int n, vector<vector<int>>& prerequisites) {
-        vector<int> in(n+1,0);
-        vector<list<int>> aj(n+1);
-        for(auto & e : prerequisites ){
-            int u = e[0];
-            int v = e[1];
-            aj[v].push_back(u);
-            in[u]++;
+vector<int> ans ;
+vector<int> visit;
+vector<vector<int>> aj; 
+    bool dfs(int i , vector<vector<int>> &aj , vector<int> &visit ){
+        for(int &ngbr : aj[i]){
+            if(visit[ngbr] == 1) continue ;
+            if(visit[ngbr] == 2) return 1 ;
+            visit[ngbr] = 2 ;
+            if(dfs(ngbr,aj,visit)) return 1 ;
         }
-        queue<int> q;
-        for(int i = 0 ; i < n ; i++) if(in[i] == 0) q.push(i);
-        vector<int> ans;
-        while(!q.empty()){
-            int now = q.front();
-            q.pop();
-            ans.push_back(now);
-            for(int &ngbr : aj[now]){
-                in[ngbr]--;
-                if(in[ngbr] == 0) q.push(ngbr);
+        ans.push_back(i);
+        visit[i] = 1 ; 
+    return 0 ;
+    }
+    vector<int> findOrder(int num, vector<vector<int>>& prerequisites) {
+        aj.resize(num);
+        visit.resize(num);
+        for(auto &q : prerequisites ){
+            aj[q[1]].push_back(q[0]);
+        }
+        for(int i = 0 ; i < num ; i++){
+            if(visit[i] == 0){
+                if(dfs(i,aj,visit) == 1) return vector<int> ();
             }
         }
-    return ans.size() == n ? ans : vector<int>{};
+        reverse(ans.begin() , ans.end());
+    return ans ;
     }
 };
