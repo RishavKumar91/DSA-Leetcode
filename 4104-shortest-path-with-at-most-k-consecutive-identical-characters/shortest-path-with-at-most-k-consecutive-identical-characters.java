@@ -28,7 +28,7 @@ class Solution {
             int count = curr.get(2);
             if(count > k) continue ;
             if(node == n-1) return val ; 
-            if( visit[node][count] < val ) continue ;
+            if( visit[node][count] != val ) continue ;
             for(int tmp[] : aj.get(node)){
                 int newnode = tmp[0];
                 int newval = tmp[1] + val;
