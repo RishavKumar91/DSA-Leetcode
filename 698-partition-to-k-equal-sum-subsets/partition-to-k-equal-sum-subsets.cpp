@@ -1,33 +1,47 @@
 class Solution {
 public:
-int SUM ;
-int rqsum ;
-int n;
-// vector<vector<vector<int>>> p; 
-vector<int> p;
-    bool hlpr(vector<int> &nums,int k , int sum , int mask){
-        if(k == 0 ) return 1;
-        // if(p[k][sum][mask] != -1) return p[k][sum][mask] ;
-        if(p[mask] != -1) return p[mask];
-        for(int i = 0 ; i < n ; i++){
-            
-            if( mask & 1<<i ) continue ; // index use ho gaya hai
+    int n, rqsum;
+    vector<int> dp;
 
-            if(sum + nums[i] > rqsum) continue;
-            if(sum + nums[i] == rqsum) if(hlpr(nums,k-1,0,mask | 1<<i)) return p[mask] =  1; 
-            if(sum + nums[i]  < rqsum) if(hlpr(nums,k,sum + nums[i], mask | 1<<i)) 
-                return p[mask]= 1; 
+    bool hlpr(vector<int>& nums, int k, int currsum, int mask) {
+        if (k == 0) return 1;
+
+        if (dp[mask] != -1) return dp[mask];
+
+        for (int i = 0; i < n; i++) {
+            if (mask & (1 << i)) continue;
+
+            if (currsum + nums[i] > rqsum) break;
+
+            else if (currsum + nums[i] == rqsum) {
+                if (hlpr(nums, k - 1, 0, mask | (1 << i)))
+                    return dp[mask] = 1;
+            }
+            else {
+                if (hlpr(nums, k, currsum + nums[i],
+                         mask | (1 << i)))
+                    return dp[mask] = 1;
+            }
         }
-    return p[mask] =  0;
+
+        return dp[mask] = 0;
     }
+
     bool canPartitionKSubsets(vector<int>& nums, int k) {
-        SUM = accumulate(nums.begin() , nums.end() , 0); 
-        if(SUM % k != 0) return 0 ;
-        rqsum = SUM / k ;
         n = nums.size();
-        // p.resize(k+1,vector<vector<int>> (rqsum+1,vector<int> (1<<n , -1))); 
-        
-        p.resize(1<<n,-1);
-        return hlpr(nums,k,0,0);
+
+        int sum = accumulate(nums.begin(), nums.end(), 0);
+
+        if (sum % k != 0) return 0;
+
+        rqsum = sum / k;
+
+        sort(nums.begin(), nums.end());
+
+        if (nums[n - 1] > rqsum) return 0;
+
+        dp.assign(1 << n, -1);
+
+        return hlpr(nums, k, 0, 0);
     }
 };
