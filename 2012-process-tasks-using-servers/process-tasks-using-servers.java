@@ -33,11 +33,8 @@ class Solution {
 
             if (free.isEmpty()) {
                 currTime = busy.peek().end;
-
-                // while (!busy.isEmpty() && busy.peek().end <= currTime) {
-                    Trio t = busy.poll();
-                    free.offer(new Pair(t.weight, t.ix));
-                // }
+                free.offer(new Pair(busy.peek().weight, busy.peek().ix));
+                busy.poll();
             }
 
             Pair p = free.poll();
