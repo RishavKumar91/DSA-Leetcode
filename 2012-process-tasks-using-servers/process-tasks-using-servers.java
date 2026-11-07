@@ -1,49 +1,49 @@
 class Solution {
+    record Pair(int weight, int ix) {}
+    record Trio(long end, int weight, int ix) {}
+
     public int[] assignTasks(int[] servers, int[] tasks) {
-
-        PriorityQueue<int[]> free = new PriorityQueue<>((a, b) -> {
-            if (a[0] == b[0]) return Integer.compare(a[1], b[1]);
-            return Integer.compare(a[0], b[0]);
+        PriorityQueue<Pair> free = new PriorityQueue<>((a, b) -> {
+            if (a.weight != b.weight)
+                return Integer.compare(a.weight, b.weight);
+            return Integer.compare(a.ix, b.ix);
         });
 
-        PriorityQueue<long[]> busy = new PriorityQueue<>((a, b) -> {
-            int cmp = Long.compare(a[0], b[0]);
+        PriorityQueue<Trio> busy = new PriorityQueue<>((a, b) -> {
+            int cmp = Long.compare(a.end, b.end);
             if (cmp != 0) return cmp;
-
-            cmp = Long.compare(a[1], b[1]);
-            if (cmp != 0) return cmp;
-
-            return Long.compare(a[2], b[2]);
+            if (a.weight != b.weight)
+                return Integer.compare(a.weight, b.weight);
+            return Integer.compare(a.ix, b.ix);
         });
 
-        for (int i = 0; i < servers.length; i++) {
-            free.offer(new int[]{servers[i], i});
-        }
+        for (int i = 0; i < servers.length; i++)
+            free.offer(new Pair(servers[i], i));
 
         int[] ans = new int[tasks.length];
-        long currTime = 0;
+        // long currTime = 0;
 
         for (int i = 0; i < tasks.length; i++) {
-            currTime = Math.max(currTime, i);
+            long currTime =  i ;
 
-            while (!busy.isEmpty() && busy.peek()[0] <= currTime) {
-                long[] t = busy.poll();
-                free.offer(new int[]{(int)t[1], (int)t[2]});
+            while (!busy.isEmpty() && busy.peek().end <= currTime) {
+                Trio t = busy.poll();
+                free.offer(new Pair(t.weight, t.ix));
             }
 
             if (free.isEmpty()) {
-                currTime = busy.peek()[0];
+                currTime = busy.peek().end;
 
-                while (!busy.isEmpty() && busy.peek()[0] <= currTime) {
-                    long[] t = busy.poll();
-                    free.offer(new int[]{(int)t[1], (int)t[2]});
-                }
+                // while (!busy.isEmpty() && busy.peek().end <= currTime) {
+                    Trio t = busy.poll();
+                    free.offer(new Pair(t.weight, t.ix));
+                // }
             }
 
-            int[] p = free.poll();
-            ans[i] = p[1];
+            Pair p = free.poll();
+            ans[i] = p.ix;
 
-            busy.offer(new long[]{currTime + tasks[i], p[0], p[1]});
+            busy.offer(new Trio(currTime + tasks[i], p.weight, p.ix));
         }
 
         return ans;
