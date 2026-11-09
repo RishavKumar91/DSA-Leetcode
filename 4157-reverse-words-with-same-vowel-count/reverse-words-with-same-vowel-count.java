@@ -17,7 +17,7 @@ class Solution {
                 // StringBuilder tmp = new StringBuilder(s.substring(start,i));
 
                 if(currvwl == vwlcount) tmp.reverse() ;
-                sb.append(" " + tmp);
+                sb.append(' ').append(tmp);
                 i++;
                 currvwl = 0 ;
                 start = i ;
@@ -30,7 +30,7 @@ class Solution {
             }
         }
         if(currvwl == vwlcount) tmp.reverse() ;
-        sb.append(" " + tmp);
+        sb.append(' ').append(tmp);
     return new String(sb) ; 
     }
 }
