@@ -7,10 +7,11 @@ class Solution {
             || s.charAt(i) == 'u' ) vwlcount++;
         i++; 
         }
+        
+        sb.append(s.substring(0,i));
+        if(i >= n) return new String(sb) ;
         int currvwl = 0 , start = i+1 ; i++;
         StringBuilder tmp = new StringBuilder();
-        sb.append(s.substring(0,i-1));
-        if(i >= n) return new String(sb) ;
         while(i < n ){
             if(s.charAt(i) == ' '){
                 // StringBuilder tmp = new StringBuilder(s.substring(start,i));
