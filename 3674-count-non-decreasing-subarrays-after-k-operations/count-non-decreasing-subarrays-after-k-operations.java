@@ -29,7 +29,7 @@ class Solution {
             deq.offerLast(j);
             while(i <= j ){
                 int m = deq.peekFirst() ; 
-                long optns = ( (nums[m] * (j-m+1)) - rangesum(m,j,cumsum) ) +  Optns[i] - Optns[m] ; 
+                int optns = ( (nums[m] * (j-m+1)) - rangesum(m,j,cumsum) ) +  Optns[i] - Optns[m] ; 
                 if(optns <= k) break;
             i++;
             if(deq.peekFirst() < i) deq.pollFirst() ; 
