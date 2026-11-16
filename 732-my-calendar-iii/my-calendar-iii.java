@@ -8,9 +8,9 @@ class MyCalendarThree {
         event.put(startTime , event.getOrDefault(startTime,0) + 1 ) ;
         event.put(endTime , event.getOrDefault(endTime  ,0) - 1 ) ;
         int i = 0 , ans = 1 ;
-        for(Map.Entry<Integer,Integer> m : event.entrySet() ){
-            i += m.getValue();
-            ans = Math.max(ans,i);
+        for(int delta:event.values()){
+            i+=delta;
+            ans=Math.max(ans,i);
         }
     return ans ;
     }
