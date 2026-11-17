@@ -19,7 +19,7 @@ class Solution {
         if(start == n) return 1000000000; 
         if(dp[start][k] != -1) return dp[start][k];
         int ans = 1000000000 ; 
-        for(int i = start ; i < n ; i++){
+        for(int i = start + 1 ; i < n ; i++){
             int currmin = minimumcost(start,i,s);
             ans = Math.min(ans , currmin + hlpr(i+1,k-1,s));
         }
